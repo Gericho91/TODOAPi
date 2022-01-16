@@ -8,5 +8,7 @@ namespace ToDoApi.Application.ToDos.Dto
 {
     public class UpdateToDoDto
     {
+        public Guid Id { get; set; }
+        public string Description { get; set; }
     }
 }

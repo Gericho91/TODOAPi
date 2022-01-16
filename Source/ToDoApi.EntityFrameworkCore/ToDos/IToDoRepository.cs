@@ -44,9 +44,9 @@ namespace ToDoApi.EntityFrameworkCore.ToDos
         /// </summary>
         /// <param name="userId">User unique identifier</param>
         /// <param name="isFinished">ToDo is finished</param>
-        /// <param name="description">ToDo description</param>
+        /// <param name="filterText">ToDo description</param>
         /// <returns>Filtered ToDos</returns>
-        IQueryable<ToDo> Filter(Guid userId, bool? isFinished = null, string? description = null);
+        IQueryable<ToDo> Filter(Guid userId, bool? isFinished = null, string? filterText = null);
 
         /// <summary>
         /// Paginate ToDos

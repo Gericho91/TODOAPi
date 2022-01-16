@@ -54,11 +54,11 @@ namespace ToDoApi.EntityFrameworkCore.ToDos
                     select t).ToListAsync();
         }
 
-        public IQueryable<ToDo> Filter(Guid userId, bool? isFinished = null, string? description = null) =>
+        public IQueryable<ToDo> Filter(Guid userId, bool? isFinished = null, string? filterText = null) =>
             (from t in _context.ToDos
              where t.UserId == userId &&
              (isFinished == null || t.IsFinished == isFinished) &&
-             (description == null || t.Description.ToLower().Contains(description.ToLower()))
+             (filterText == null || t.Description.ToLower().Contains(filterText.ToLower()))
              select t);
                      
         public async Task<List<ToDo>> PaginateQueryAsync(IQueryable<ToDo> query, int page, int pageSize)
