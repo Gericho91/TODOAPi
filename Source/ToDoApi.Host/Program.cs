@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 using System.Text;
 
+using ToDoApi.Application.ToDos;
 using ToDoApi.Domain.Configurations;
 using ToDoApi.Domain.Roles;
 using ToDoApi.Domain.Users;
@@ -13,14 +15,39 @@ using TODOApi.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 
-
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ToDoApi", Version = "v1" });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Please insert JWT with Bearer into field. \"Bearer {Token}\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                 {
+                   new OpenApiSecurityScheme
+                   {
+                     Reference = new OpenApiReference
+                     {
+                       Type = ReferenceType.SecurityScheme,
+                       Id = "Bearer"
+                     }
+                    },
+                    new string[] { }
+                  }
+    });
+});
 
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("Settings"));
 
@@ -62,6 +89,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddTransient<IToDoRepository, ToDoRepository>();
+builder.Services.AddTransient<IToDoService, ToDoService>();
 
 var app = builder.Build();
 

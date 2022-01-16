@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Profiles\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ToDoApi.Application\ToDoApi.Application.csproj" />
     <ProjectReference Include="..\ToDoApi.Domain\ToDoApi.Domain.csproj" />
     <ProjectReference Include="..\ToDoApi.EntityFrameworkCore\ToDoApi.EntityFrameworkCore.csproj" />
