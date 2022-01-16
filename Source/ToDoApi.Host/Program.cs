@@ -7,6 +7,7 @@ using System.Text;
 using ToDoApi.Domain.Configurations;
 using ToDoApi.Domain.Roles;
 using ToDoApi.Domain.Users;
+using ToDoApi.EntityFrameworkCore.ToDos;
 
 using TODOApi.EntityFrameworkCore;
 
@@ -59,6 +60,8 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
 });
+
+builder.Services.AddTransient<IToDoRepository, ToDoRepository>();
 
 var app = builder.Build();
 
