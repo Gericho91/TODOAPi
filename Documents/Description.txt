@@ -1,0 +1,23 @@
+Feladat
+
+A próbafeladat során egy TODO applikációt kell elkészíteni. 
+
+
+Funkcionális követelmények:
+
+
+Én, mint felhasználó, legyek képes a rendszerben egy új TODO elem hozzáadására. Egy TODO elem szövegesen rögzít egy feladatot, és van egy logikai tulajdonsága, mely jelzi, hogy elkészült-e.
+
+Én, mint felhasználó, legyek képes a rendszerben a felvett TODO elemek listázására.
+
+Én, mint felhasználó, legyek képes a rendszerben egy felvett TODO elemet készre jelenteni.
+
+Én, mint felhasználó, legyek képes a rendszerben az elkészült / el nem készült TODO elemek listázására.
+
+Én, mint felhasználó, legyek képes a rendszerben TODO elemek törlésére.
+
+Én, mint felhasználó, legyek képes a rendszerben TODO elemek szövegezésének módosítására.
+
+Én, mint felhasználó, legyek képes a rendszerben a TODO elemek közti szöveges keresésre.
+
+Én, mint felhasználó, legyek képes a rendszerben a listázott TODO elemek közt oldalanként böngészni. Egy oldalon legfeljebb 25 elem szerepelhet.
