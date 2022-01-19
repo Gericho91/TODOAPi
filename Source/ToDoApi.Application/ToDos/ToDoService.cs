@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 using ToDoApi.Application.ToDos.Dto;
+using ToDoApi.Domain.Models;
 using ToDoApi.Domain.ToDos;
 using ToDoApi.EntityFrameworkCore.ToDos;
 
@@ -73,6 +74,12 @@ namespace ToDoApi.Application.ToDos
             await _repository.DeleteAsync(id);
         }
 
+        public async Task<ToDoDto> GetToDoByIdAsync(Guid id)
+        {
+            var toDo = await _repository.GetByIdAsync(id);
+            return _mapper.Map<ToDoDto>(toDo);
+        }
+
         public async Task UpdateToDoAsync(UpdateToDoDto toDoDto)
         {
             var toDo = await _repository.GetByIdAsync(toDoDto.Id);
@@ -86,7 +93,7 @@ namespace ToDoApi.Application.ToDos
             return _mapper.Map<List<ToDoDto>>(toDos);
         }
 
-        public async Task<List<ToDoDto>> GetToDosByFinishedAsync(bool isFinished, Guid userId)
+        public async Task<List<ToDoDto>> GetToDosByStateAsync(bool isFinished, Guid userId)
         {
             var toDos = await _repository.Filter(userId, isFinished).ToListAsync();
             return _mapper.Map<List<ToDoDto>>(toDos);
@@ -98,11 +105,15 @@ namespace ToDoApi.Application.ToDos
             return _mapper.Map<List<ToDoDto>>(toDos);
         }
 
-        public async Task<List<ToDoDto>> GetToDosByPagingAsync(int page, int pageSize, Guid userId)
+        public async Task<PaginationResult<ToDoDto>> GetToDosByPagingAsync(int page, int pageSize, Guid userId)
         {
             var query = _repository.Filter(userId);
             var toDos = await _repository.PaginateQueryAsync(query, page, pageSize);
-            return _mapper.Map<List<ToDoDto>>(toDos);
+            return new PaginationResult<ToDoDto>
+            {
+                Count = query.Count(),
+                Items = _mapper.Map<List<ToDoDto>>(toDos)
+            };
         }
     }
 }

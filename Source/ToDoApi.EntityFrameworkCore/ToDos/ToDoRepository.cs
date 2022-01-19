@@ -33,7 +33,7 @@ namespace ToDoApi.EntityFrameworkCore.ToDos
 
         public async Task<ToDo> GetByIdAsync(Guid id)
         {
-            return await _context.ToDos.FirstOrDefaultAsync(t => t.Id == id);
+            return await _context.ToDos.FindAsync(id);
         }
 
         public async Task<bool> DeleteAsync(Guid id)
